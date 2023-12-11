@@ -44,7 +44,7 @@ The goal is to generate some analytics from the provided data:
  Run the main script:
 
     ```bash
-    python3 Office_sess_analytics.py
+    python3 office_sess_analytics.py
     ```
 
 ## Output
