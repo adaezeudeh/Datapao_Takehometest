@@ -7,8 +7,8 @@ from office_sess_analytics import  get_data,process_time_entries, calculate_aver
 class TestMyMainFunctions(unittest.TestCase):
     def setUp(self):
         # Set up your data or any initial configurations
-        file_path = 'Data/datapao_homework_2023.csv'
-        data = get_data(file_path)
+        file_name = 'datapao_homework_2023.csv'
+        data = get_data(file_name)
         self.processed_time = process_time_entries(data)
         self.ranked_data = calculate_average_and_rank(self.processed_time)
         self.longest_session_data = find_longest_work_session(data)

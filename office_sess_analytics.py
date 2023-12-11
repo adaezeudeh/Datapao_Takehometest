@@ -4,8 +4,12 @@ from datetime import datetime, timedelta
 from operator import itemgetter
 import os
 
-def get_data(file_path):
+def get_data(file_name):
     """Reads the CSV file and returns the data."""
+    data_directory = 'data'
+    # Join data_directory to the current working directory
+    file_path = os.path.join(os.getcwd(), data_directory, file_name) 
+
     with open(file_path, 'r') as file:
         reader = csv.DictReader(file)
         data = list(reader)
@@ -149,19 +153,22 @@ def write_to_csv(file_path, header, data):
 
 def main():
     # Step 1: Read the CSV file
-    file_path = 'Data/datapao_homework_2023.csv'
-    february_data = get_data(file_path)
+    file_name = 'datapao_homework_2023.csv'
+    february_data = get_data(file_name)
+    print(f"Data Retrieved from '{file_name}'")
 
     # Step 2: Process time entries
     user_data = process_time_entries(february_data)
-    
+
     # Step 3: Calculate average and rank users
     ranked_result = calculate_average_and_rank(user_data)
+    print(f"Users Ranked Successfully")
 
     # Step 4: Write results to the first CSV file
     first_csv_path = 'output/first.csv'
     first_csv_header = ['user_id', 'time', 'days', 'average_per_day', 'rank']
     write_to_csv(first_csv_path, first_csv_header, ranked_result)
+    print(f"First Results written to '{first_csv_path}'")
 
     # Step 5: Find the longest work session
     longest_session_user = find_longest_work_session(february_data)
@@ -170,6 +177,8 @@ def main():
     second_csv_path = 'output/second.csv'
     second_csv_header = ['user_id', 'session_length']
     write_to_csv(second_csv_path, second_csv_header, longest_session_user)
+    print(f"Second Results written to '{second_csv_path}'")
+
 
 
 if __name__ == "__main__":
