@@ -31,19 +31,19 @@ The goal is to generate some analytics from the provided data:
 
 1. Clone this Repository
 
-    ```bash
+    ```
     git clone <git url>
     ```
 2. Navigate to the project directory:
 
-    ```bash
+    ```
     cd Datapao_Takehometest
     ```
 ## Execution
 
  Run the main script:
 
-    ```bash
+    ```
     python3 office_sess_analytics.py
     ```
 
