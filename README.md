@@ -14,8 +14,8 @@ The goal is to generate some analytics from the provided data:
    - Write the analysis to a CSV file with fields: user_id, session_length.
 
 3. **Insights**
-   - Visualize employee attendance analysis in Analytics_chart.png file.
-   - Synthesis providing context to visualized data and recommendations.
+   - Visualize employee attendance and insert Analytics_Dashboard.png file.
+   - Write data synthesis providing context to visualized data and recommendations.
      
 ### Requirements
 
