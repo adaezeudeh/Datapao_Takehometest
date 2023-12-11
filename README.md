@@ -44,7 +44,7 @@ The goal is to generate some analytics from the provided data:
  Run the main script:
 
     ```bash
-    python Office_sess_analytics.py
+    python3 Office_sess_analytics.py
     ```
 
 ## Output
@@ -57,5 +57,5 @@ Upon successful execution, the program generates two output CSV files:
  ## Testing
 - To test if the application passes all requirements and handles edge cases such as an empty dataset, run:
   ```
-  python test.py
+  python3 test.py
   ```
