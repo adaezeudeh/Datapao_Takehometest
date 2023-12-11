@@ -1,6 +1,6 @@
 import unittest
 import os
-from Office_sess_analytics import  get_data,process_time_entries, calculate_average_and_rank, find_longest_work_session 
+from office_sess_analytics import  get_data,process_time_entries, calculate_average_and_rank, find_longest_work_session 
 
 
 

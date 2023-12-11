@@ -90,11 +90,11 @@ def find_longest_work_session(data):
         activity_per_user[user_id].append((timestamp, action))
 
     def calculate_sessions(timestamps_action):
-        """Calculate work sessions based on user actions. Factors in condition where break is over 2 hours it counts as aa new session.
+        """Calculate work sessions based on user actions. Factors in condition where break is over 2 hours it counts as a new session.
         Returns:
         - list: List of work session start and end timestamps."""
 
-        session_lengths = []
+        sessions = []
         start_time, last_out_time = None, None
 
         for timestamp, action in timestamps_action:
@@ -102,7 +102,7 @@ def find_longest_work_session(data):
                 if start_time is not None:
                     time_diff = timestamp - last_out_time if last_out_time else None
                     if time_diff and time_diff >= timedelta(hours=2):
-                        session_lengths.append((start_time, last_out_time))
+                        sessions.append((start_time, last_out_time))
                         start_time = timestamp
                 else:
                     start_time = timestamp
@@ -110,9 +110,9 @@ def find_longest_work_session(data):
                 last_out_time = timestamp
 
         if start_time is not None and last_out_time is not None:
-            session_lengths.append((start_time, last_out_time))
+            sessions.append((start_time, last_out_time))
 
-        return session_lengths
+        return sessions
 
     def get_max_session_time(session_times):
         """Calculate the maximum session time from all the sessions.
@@ -124,8 +124,8 @@ def find_longest_work_session(data):
     user_with_max_time = None
 
     for user_id, timestamps_action in activity_per_user.items():
-        session_lengths = calculate_sessions(timestamps_action)
-        max_time_for_user = get_max_session_time(session_lengths)
+        sessions = calculate_sessions(timestamps_action)
+        max_time_for_user = get_max_session_time(sessions)
         if max_time_for_user > max_session_time:
             max_session_time = max_time_for_user
             user_with_max_time = user_id
