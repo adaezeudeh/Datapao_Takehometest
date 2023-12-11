@@ -29,7 +29,7 @@ The goal is to generate some analytics from the provided data:
 
 #### Setup
 
-1. **Clone this Repository**
+1. Clone this Repository
 
     ```bash
     git clone <git url>
