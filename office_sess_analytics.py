@@ -9,9 +9,11 @@ def get_data(file_path):
     with open(file_path, 'r') as file:
         reader = csv.DictReader(file)
         data = list(reader)
+
+    sorted_data = sorted(data, key=lambda x: x.get('event_time')) # Sort data based on the 'event_time' field incase unsorted
     
     """Filters data for February."""
-    february_data = [entry for entry in data if entry['event_time'].startswith('2023-02')]
+    february_data = [entry for entry in sorted_data if entry['event_time'].startswith('2023-02')]
 
     return february_data
 
@@ -22,7 +24,7 @@ def process_time_entries(data):
     - user_data (defaultdict): Dictionary containing user data with time spent, days present, and last action."""
 
     # Initialize a dictionary to store user-related information
-    user_data = defaultdict(lambda: {'time': 0.0, 'days': set(), 'last_action': None})
+    user_data = defaultdict(lambda: {'time': 0.0, 'days': set(), 'last_activity': None})
 
     for entry in data:
         try:
@@ -32,36 +34,36 @@ def process_time_entries(data):
             action = entry.get('event_type').upper()  # Get and convert action to uppercase
 
             if user_id and timestamp and action:  # Ensure all necessary data exists
-                if user_data[user_id]['last_action'] is None:
-                    user_data[user_id]['last_action'] = (action, timestamp)
+                if user_data[user_id]['last_activity'] is None:
+                    user_data[user_id]['last_activity'] = (action, timestamp)
                 else:
-                    last_action, last_timestamp = user_data[user_id]['last_action']
+                    last_action, last_timestamp = user_data[user_id]['last_activity']
                     if last_action == 'GATE_IN' and action == 'GATE_OUT':
                         time_spent = (timestamp - last_timestamp).total_seconds() / 3600
                         user_data[user_id]['time'] += time_spent
                         user_data[user_id]['days'].add(timestamp.date())
-                    user_data[user_id]['last_action'] = (action, timestamp)
+                    user_data[user_id]['last_activity'] = (action, timestamp)
             else:
                 # Handle incomplete or missing data in the entry
-                print(f"Issue with entry: {entry}. Missing or incomplete data.")
+                print(f"Issue with entry: {entry}. Missing or incomplete data.")   
         except (ValueError, KeyError) as e:
             # Handle potential errors in datetime parsing or missing keys in the entry
             print(f"Error processing entry: {entry}. Reason: {e}")
 
     return user_data
 
-def calculate_average_and_rank(user_data):
-    """Calculates average time per day and ranks users based on average.
-    Returns:
-    - ranked_result (list): List of tuples containing user ranking based on average time spent in office per day."""
-    
-    def calculate_average(values):
+def calculate_average(values):
         """Calculates the average time per day for a user.
         Returns:
         - float: Average time spent in office per day."""
        
         days_present = len(values['days'])
         return round(values['time'] / days_present, 2) if days_present else 0
+
+def calculate_average_and_rank(user_data):
+    """Calculates average time per day and ranks users based on average.
+    Returns:
+    - ranked_result (list): List of tuples containing user ranking based on average time spent in office per day."""
 
     # Calculate average time per day for each user
     result = []
@@ -76,6 +78,33 @@ def calculate_average_and_rank(user_data):
     return ranked_result
 
 
+def calculate_sessions(timestamps_action):
+    """Calculate work sessions based on user actions. Factors in conditions where a break over 2 hours counts as a new session.
+    Returns:
+    - list: List of work session start and end timestamps."""
+    sessions = []
+    start_time, last_out_time = None, None
+
+    for timestamp, action in timestamps_action:
+        if action == "GATE_IN":
+            if start_time is not None:
+                time_diff = timestamp - last_out_time if last_out_time else None
+                if time_diff and time_diff > timedelta(hours=2):
+                    sessions.append((start_time, last_out_time))
+                    start_time = timestamp
+            else:
+                start_time = timestamp
+        elif action == "GATE_OUT":
+            last_out_time = timestamp
+
+    return sessions
+
+def get_max_session_time(session_times):
+    """Calculate the maximum session time from all the sessions.
+    Returns:
+    - float: Maximum session time in seconds."""
+    return max(((end_time - start_time).total_seconds() for start_time, end_time in session_times), default=0)
+
 def find_longest_work_session(data):
     """Finds the user with the longest work session and the corresponding session length.
     Returns:
@@ -88,37 +117,6 @@ def find_longest_work_session(data):
         timestamp = datetime.strptime(entry.get('event_time'), '%Y-%m-%dT%H:%M:%S.%fZ')
         action = entry.get('event_type').upper()  # Get and convert action to uppercase
         activity_per_user[user_id].append((timestamp, action))
-
-    def calculate_sessions(timestamps_action):
-        """Calculate work sessions based on user actions. Factors in condition where break is over 2 hours it counts as a new session.
-        Returns:
-        - list: List of work session start and end timestamps."""
-
-        sessions = []
-        start_time, last_out_time = None, None
-
-        for timestamp, action in timestamps_action:
-            if action == "GATE_IN":
-                if start_time is not None:
-                    time_diff = timestamp - last_out_time if last_out_time else None
-                    if time_diff and time_diff >= timedelta(hours=2):
-                        sessions.append((start_time, last_out_time))
-                        start_time = timestamp
-                else:
-                    start_time = timestamp
-            elif action == "GATE_OUT":
-                last_out_time = timestamp
-
-        if start_time is not None and last_out_time is not None:
-            sessions.append((start_time, last_out_time))
-
-        return sessions
-
-    def get_max_session_time(session_times):
-        """Calculate the maximum session time from all the sessions.
-        Returns:
-        - float: Maximum session time in seconds."""
-        return max(map(lambda x: (x[1] - x[0]).total_seconds(), session_times), default=0)
 
     max_session_time = 0
     user_with_max_time = None

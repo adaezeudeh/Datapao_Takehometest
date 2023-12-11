@@ -4,7 +4,7 @@ from office_sess_analytics import  get_data,process_time_entries, calculate_aver
 
 
 
-class TestMyFunctions(unittest.TestCase):
+class TestMyMainFunctions(unittest.TestCase):
     def setUp(self):
         # Set up your data or any initial configurations
         file_path = 'Data/datapao_homework_2023.csv'
@@ -29,7 +29,7 @@ class TestMyFunctions(unittest.TestCase):
         self.assertIsInstance(self.processed_time, dict) # Check if the result is a dictionary
 
         # Check if each user's data contains the expected keys
-        expected_keys = {'time', 'days', 'last_action'}
+        expected_keys = {'time', 'days', 'last_activity'}
         self.assertTrue(all(set(user_data.keys()) == expected_keys for user_data in self.processed_time.values()))
 
         # Check if 'time' values in the processed data are floats
