@@ -1,13 +1,21 @@
-The analysis on employee attendance in the month of february suggests a significant discrepancy between expected and actual work hours, as well as subpar attendance rates, warranting attention and potential adjustments to optimize workforce productivity and commitment. Below are further details:
+The analysis on employee attendance in the month of february suggests a significant discrepancy between expected and actual work hours, 
+as well as subpar attendance rates, warranting attention and potential adjustments to optimize workforce productivity and commitment. Below are further details:
 
-The analytics dashboard displays three visual representations: a pie chart and two bar charts. The pie chart illustrates the distribution of employees based on whether they meet the expected daily hour commitment. The standard expectation for employees is an 8-hour workday, including a 2-hour break, resulting in an expected minimum of 6 hours of active work daily. Surprisingly, less than 10% of employees meet this expected commitment on average.
+The analytics dashboard displays three visual representations: a pie chart and two bar charts. The pie chart illustrates the distribution of employees based 
+on whether they meet the expected daily hour commitment. The standard expectation for employees is an 8-hour workday, including a 2-hour break, 
+resulting in an expected minimum of 6 hours of active work daily. Surprisingly, less than 10% of employees meet this expected commitment on average.
 
-Additionally, there are two bar charts depicting different metrics. The first bar chart presents the percentage of days employees attended work out of the expected 20 days in a week. It showcases that 19% of employees fall within the 'good' category, attending work consistently i.e between 18 to 20 days per month. However, a staggering 72% of employees are categorized as 'poor' due to lower attendance levels, and 9% fall under 'very poor' attendance.
+Additionally, there are two bar charts depicting different metrics. The first bar chart presents the percentage of days employees attended work out of 
+the expected 20 days in a week. It showcases that 19% of employees fall within the 'good' category, attending work consistently i.e between 18 to 20 days per month.
+However, a staggering 72% of employees are categorized as 'poor' due to lower attendance levels, and 9% fall under 'very poor' attendance.
 
-The second bar chart highlights the percentage of hours worked for the expected hours of the number of days they attended. Astonishingly, none of the employees met the 'good' category, with 80% categorized as 'very poor' and 20% falling under the 'poor' category.
+The second bar chart highlights the percentage of hours worked for the expected hours of the number of days they attended. Astonishingly, none of the employees met 
+the 'good' category, with 80% categorized as 'very poor' and 20% falling under the 'poor' category.
 
 Potential Implications:
 This shortfall in meeting the expected work time commitment may have significant repercussions on organizational output and employee well-being.
-Some potential adverse effects include: Loss in Revenue due to lower organizational output, Reduced Productivity,Inefficient Resource Utilization,Impact on Team Collaboration e.t.c
+Some potential adverse effects include: Loss in Revenue due to lower organizational output, Reduced Productivity,Inefficient Resource Utilization,
+Impact on Team Collaboration e.t.c
 
-Corrective steps such as Communication/Awareness,Training/Support Programs,Incentive packages could potentially help to mitigate these challenges and optimize organizational performance.
+Corrective steps such as Communication/Awareness,Training/Support Programs,Incentive packages could potentially help to mitigate these challenges 
+and optimize organizational performance.
