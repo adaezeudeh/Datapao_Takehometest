@@ -1,6 +1,4 @@
 # Datapao_Takehometest
-# Smart Office Analytics
-
 This repository contains analytics and insights derived from provided data regarding employee office attendance.
 
 ## Project Overview
@@ -16,8 +14,8 @@ The goal is to generate some analytics from the provided data:
    - Write the analysis to a CSV file with fields: user_id, session_length.
 
 3. **Insights**
-   - Provide pie chart visualizing attendance analysis.
-   - Synthesis providing context to visualized data and recommendations
+   - Visualize employee attendance analysis in Analytics_chart.png file.
+   - Synthesis providing context to visualized data and recommendations.
      
 ### Requirements
 
